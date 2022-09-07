@@ -57,6 +57,8 @@ $item = get_item($id);
 <body>
 <?php
 
+// Basic metadata
+
 foreach ($item->pages as $page)
 {
 	echo '<div class="page" ';
@@ -113,6 +115,11 @@ foreach ($item->pages as $page)
 	echo '</div>' . "\n";
 }
 ?>
+
+<script>
+	window.parent.document.getElementById('title').innerHTML="<?php echo $item->title; ?>";
+</script>
+
   <script src="lazy.js"></script>
 </body>
 </html>
