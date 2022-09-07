@@ -89,7 +89,11 @@ foreach ($item->pages as $page)
 	{
 		$info->bhl = (Integer)$page->bhl;
 	}	
-	
+
+	if (isset($page->tags))
+	{
+		$info->tags = $page->tags;
+	}	
 	
 	echo 'data-page="' . urlencode(json_encode($info)) . '" ';
 	echo '>' . "\n";

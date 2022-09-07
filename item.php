@@ -3,13 +3,19 @@
 // get object to display
 
 $pdo = new PDO('sqlite:archive.db');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 //----------------------------------------------------------------------------------------
 function do_query($sql)
 {
 	global $pdo;
 	
-	$stmt = $pdo->query($sql);
+	try {	
+		$stmt = $pdo->query($sql);
+	} catch (PDOException $e) {
+		echo 'Query failed: ' . $e->getMessage();
+		exit();
+	}		
 
 	$data = array();
 
@@ -27,9 +33,7 @@ function do_query($sql)
 			}
 		}
 	
-		$data[] = $item;
-	
-	
+		$data[] = $item;	
 	}
 	
 	return $data;	
@@ -59,6 +63,20 @@ function get_item($id)
 	{
 		$item->pages = $data;	
 	}	
+	
+	// get annotations
+	$sql = 'SELECT * FROM annotation WHERE guid="' . $id . '" ORDER BY `sequence`';
+	
+	$data = do_query($sql);
+	
+	if (count($data) > 0)
+	{
+		foreach ($data as $row)
+		{
+			$item->pages[$row->sequence]->tags[] = $row->text;
+		}
+	}	
+
 
 	return $item;
 }
@@ -67,6 +85,7 @@ function get_item($id)
 if (0)
 {
 	$id = 'pubmed-PMC3591763';
+	$id = 'AustralianCrickets';
 
 	$item = get_item($id);
 
