@@ -74,7 +74,7 @@ if ($url != '')
 	$path = $url;
 	$path = str_replace(' ','%20',$path);
 	$fname = tempnam(sys_get_temp_dir(), 'imo_');
-	
+
 	$curl_result = download_file($path,$fname);
 	if($curl_result[0] === false){
 		header("HTTP/1.0 404 Not Found");
@@ -98,5 +98,3 @@ if ($url != '')
 }
 
 ?>
-
-

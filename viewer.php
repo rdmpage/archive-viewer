@@ -103,8 +103,9 @@ foreach ($item->pages as $page)
 	{
 		echo '<a name="' .  $page->pageNumber . '"></a>' . "\n";
 	}
-	
+
 	echo '<img class="lazy" data-src="imageproxy.php?url=' . $page->imageUrl .  '" onerror="retry(this)" >' . "\n";
+
 	echo '</div>' . "\n";
 }
 ?>
