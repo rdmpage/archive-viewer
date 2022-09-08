@@ -74,9 +74,13 @@ while (!feof($file_handle))
 							$keys[] = 'page';
 							$values[] = '"' . $obj->page . '"';						
 						}
+						
 
-						$keys[] = 'text';
-						$values[] = '"' . $selector->text . '"';						
+						$keys[] = 'body';
+						$values[] = '"' . $selector->body . '"';						
+						
+						$keys[] = 'exact';
+						$values[] = '"' . $selector->exact . '"';						
 
 						$keys[] = 'prefix';
 						$values[] = '"' . $selector->prefix . '"';						

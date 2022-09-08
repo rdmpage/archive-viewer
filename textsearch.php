@@ -134,9 +134,10 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 	
 	$result = new stdclass;
 
-	
 	$query = $needle;
 	$text = $haystack;
+	
+	$original_query = $query;
 	
 	if ($case_insensitive)
 	{
@@ -188,12 +189,17 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 		
 		// get position of match in substring
 		$alignment = compare($text1, $text2);
+		
+		//echo $alignment->alignment;
 	
 		// store this hit
 		$hit = new stdclass;
 		
-		// store the score
-		$hit->score = $d;
+		// store query string
+		$hit->body = $original_query;
+		
+		// store the score of the alignment
+		$hit->score = $query_length - $alignment->d;
 		
 		//$hit->alignment = $alignment;
 		
@@ -204,7 +210,7 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 		$hit->range = array($start, $end);
 		
 		// match in haystack
-		$hit->text = mb_substr($haystack, $start, $end - $start);
+		$hit->exact = mb_substr($haystack, $start, $end - $start);
 		
 		$pre_length = min($start, FLANKING_LENGTH);
 		$pre_start = $start - $pre_length;
@@ -233,11 +239,8 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 		}
 	}
 	
-	
-	
 	if ($output_html)
 	{
-
 		// HTML for debugging
 		
 		// slit origjnal text into array of characters

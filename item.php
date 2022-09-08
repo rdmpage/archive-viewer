@@ -73,7 +73,7 @@ function get_item($id)
 	{
 		foreach ($data as $row)
 		{
-			$item->pages[$row->sequence]->tags[] = $row->text;
+			$item->pages[$row->sequence]->tags[] = $row->exact;
 		}
 	}	
 

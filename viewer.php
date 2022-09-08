@@ -11,6 +11,8 @@ $id = 'AustralianCrickets';
 //$id ='american-museum-novitates-3815-001-014';
 //$id ='australianentom25entob';
 
+//$id ='revuesuissedezoo1174schw';
+
 if (isset($_GET['id']))
 {
 	$id = $_GET['id'];
@@ -43,7 +45,7 @@ $item = get_item($id);
 		
 		.page img {
 			width: 100%;
-			object-fit: contain;
+			height: 100%;
 		}
 				
 		.lazy {
